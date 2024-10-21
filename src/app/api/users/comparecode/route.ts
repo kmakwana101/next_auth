@@ -1,10 +1,7 @@
 import { connect } from "@/dbConfig/dbConfig";
 import { NextRequest, NextResponse } from "next/server";
-import { AppError } from "@/app/helpers/errorHandler";
-import { USER } from "@/app/models/userModel";
-import { OTPGenerator } from "@/app/helpers/authHelpers";
-import { USER_VERIFICATION } from "@/app/models/userVerificationModel";
-import { sendMail } from "@/app/helpers/sendMail";
+import { AppError } from "@/helpers/errorHandler";
+import { USER_VERIFICATION } from "@/models/userVerificationModel";
 connect();
 
 export async function POST(request: NextRequest) {

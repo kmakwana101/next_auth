@@ -28,4 +28,3 @@ const sessionSchema: Schema = new mongoose.Schema({
 
 // Create the Session model or use the existing model if it already exists
 export const SESSION = mongoose.models.sessions || mongoose.model<ISession>('sessions', sessionSchema);
-

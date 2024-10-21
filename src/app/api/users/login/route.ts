@@ -1,12 +1,11 @@
 import { connect } from "@/dbConfig/dbConfig";
 import { NextRequest, NextResponse } from "next/server";
-import { AppError } from "@/app/helpers/errorHandler";
-import { USER } from "@/app/models/userModel";
-import { TOKEN } from "@/app/models/tokenModel";
-import { SESSION } from "@/app/models/sessionModel";
+import { AppError } from "@/helpers/errorHandler";
+import { USER } from "@/models/userModel";
+import { TOKEN } from "@/models/tokenModel";
+import { SESSION } from "@/models/sessionModel";
 import * as bcrypt from "bcrypt";
-import { generateToken } from "@/app/helpers/authHelpers";
-
+import { generateToken } from "@/helpers/authHelpers";
 connect();
 
 export async function POST(request: NextRequest) {

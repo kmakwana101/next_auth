@@ -1,8 +1,8 @@
 import { connect } from "@/dbConfig/dbConfig";
 import { NextRequest, NextResponse } from "next/server";
-import { AppError } from "@/app/helpers/errorHandler";
-import { USER } from "@/app/models/userModel";
-import { userValidation } from "@/app/validations/userValidation";
+import { AppError } from "@/helpers/errorHandler";
+import { USER } from "@/models/userModel";
+import { userValidation } from "@/validations/userValidation";
 import * as bcrypt from "bcrypt";
 
 connect();

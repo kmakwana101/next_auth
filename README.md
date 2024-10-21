@@ -37,3 +37,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 
 ssh-keygen -t rsa -b 4096 -m PEM -f jwtRS256.key
+npm run dev -- -p 4000

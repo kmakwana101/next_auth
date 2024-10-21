@@ -1,19 +1,19 @@
 import { connect } from "@/dbConfig/dbConfig";
 import { NextRequest, NextResponse } from "next/server";
-import { AppError } from "@/app/helpers/errorHandler";
-import { SESSION } from "@/app/models/sessionModel";
+import { AppError } from "@/helpers/errorHandler";
+import { SESSION } from "@/models/sessionModel";
 connect();
 
 export async function POST(request: NextRequest) {
     try {
-
+        const headers: any = request.headers;
+        console.log(request.headers.get('userid'), 'userid'); // Correctly access the userid header
+        console.log(headers, 'headers');
         const authorizationHeader = request.headers.get('authorization');
-        console.log(request.headers)
         if (!authorizationHeader) {
             throw new AppError('Authorization header missing.', 400);
         }
 
-        // Extract the token, ensuring correct format
         const token = authorizationHeader.split(' ')[1];
         if (!token) {
             throw new AppError('Invalid authorization header format.', 400);
