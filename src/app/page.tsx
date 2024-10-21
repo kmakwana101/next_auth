@@ -1,101 +1,217 @@
-import Image from "next/image";
+'use client';
+import { useState } from 'react';
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  // State to manage the form mode
+  const [isSignUpMode, setIsSignUpMode] = useState(false);
+  const [isForgetPasswordMode, setIsForgetPasswordMode] = useState(false);
+  const [isOTPMode, setIsOTPMode] = useState(false);
+  const [isNewPasswordMode, setIsNewPasswordMode] = useState(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  // Function to switch to sign-up mode
+  const handleSignUpClick = () => {
+    setIsSignUpMode(true);
+    setIsForgetPasswordMode(false);
+    setIsOTPMode(false);
+    setIsNewPasswordMode(false);
+  };
+
+  // Function to switch to sign-in mode
+  const handleSignInClick = () => {
+    setIsSignUpMode(false);
+    setIsForgetPasswordMode(false);
+    setIsOTPMode(false);
+    setIsNewPasswordMode(false);
+  };
+
+  // Function to switch to forget-password mode
+  const handleForgetPasswordClick = () => {
+    setIsForgetPasswordMode(true);
+    setIsOTPMode(false);
+    setIsNewPasswordMode(false);
+  };
+
+  // Function to handle OTP submission
+  const handleOTPSubmit = (e) => {
+    e.preventDefault();
+    // After OTP verification logic
+    console.log("OTP verified");
+    setIsNewPasswordMode(true);
+    setIsOTPMode(false);
+  };
+
+  // Function to handle sending OTP and switch to OTP entry form
+  const handleSendOTPClick = (e) => {
+    e.preventDefault();
+    setIsOTPMode(true);
+    setIsForgetPasswordMode(false);
+  };
+
+  // Function to handle new password submission
+  const handleNewPasswordSubmit = (e) => {
+    e.preventDefault();
+    // Handle new password logic here
+    console.log("New password set");
+    setIsNewPasswordMode(false);
+    setIsSignUpMode(false); // Optionally, switch to sign-in after setting the new password
+  };
+
+  return (
+    <div className={`formContainer ${isSignUpMode ? 'sign-up-mode' : ''}`}>
+      <div className="forms-container">
+        <div className="signin-signup">
+          {/* Sign-In Form */}
+          {!isSignUpMode && !isForgetPasswordMode && !isOTPMode && !isNewPasswordMode && (
+            <form action="#" className="sign-in-form">
+              <h2 className="title">Sign in</h2>
+              <div className="input-field">
+                <i className="fas fa-user" />
+                <input type="text" placeholder="Username" />
+              </div>
+              <div className="input-field">
+                <i className="fas fa-lock" />
+                <input type="password" placeholder="Password" />
+              </div>
+              <input type="submit" value="Login" className="btn solid fff" />
+              <a
+                href="#"
+                onClick={handleForgetPasswordClick}
+                className="forgot-password-link my-2"
+              >
+                Forgot Password?
+              </a>
+            </form>
+          )}
+
+          {/* Forgot Password Form */}
+          {isForgetPasswordMode && !isOTPMode && (
+            <form action="#" className="forgot-password-form">
+              <h2 className="title">Forgot Password</h2>
+              <p className="info-text">
+                Enter your email address to reset your password.
+              </p>
+              <div className="input-field">
+                <i className="fas fa-envelope" />
+                <input type="email" placeholder="Email" />
+              </div>
+              <input
+                type="submit"
+                value="Send OTP"
+                className="btn solid fff"
+                onClick={handleSendOTPClick}
+              />
+              <a
+                href="#"
+                onClick={handleSignInClick}
+                className="back-to-login-link my-2"
+              >
+                Back to Login
+              </a>
+            </form>
+          )}
+
+          {/* OTP Entry Form */}
+          {isOTPMode && (
+            <form action="#" className="otp-form" onSubmit={handleOTPSubmit}>
+              <h2 className="title">Enter OTP</h2>
+              <p className="info-text">
+                OTP sent to your email. Please enter to verify.
+              </p>
+              <div className="input-field">
+                <i className="fas fa-key" />
+                <input type="text" placeholder="Enter OTP" />
+              </div>
+              <input type="submit" value="Verify OTP" className="btn solid fff" />
+            </form>
+          )}
+
+          {/* New Password Form */}
+          {isNewPasswordMode && (
+            <form action="#" className="new-password-form" onSubmit={handleNewPasswordSubmit}>
+              <h2 className="title">Set New Password</h2>
+              <div className="input-field">
+                <i className="fas fa-lock" />
+                <input type="password" placeholder="New Password" />
+              </div>
+              <div className="input-field">
+                <i className="fas fa-lock" />
+                <input type="password" placeholder="Confirm Password" />
+              </div>
+              <input type="submit" value="Set Password" className="btn solid fff" />
+            </form>
+          )}
+
+          {/* Sign-Up Form */}
+          {isSignUpMode && (
+            <form action="#" className="sign-up-form">
+              <h2 className="title">Sign up</h2>
+              <div className="input-field">
+                <i className="fas fa-user" />
+                <input type="text" placeholder="Username" />
+              </div>
+              <div className="input-field">
+                <i className="fas fa-envelope" />
+                <input type="email" placeholder="Email" />
+              </div>
+              <div className="input-field">
+                <i className="fas fa-lock" />
+                <input type="password" placeholder="Password" />
+              </div>
+              <input type="submit" value="Sign up" className="btn solid fff" />
+              <a
+                href="#"
+                onClick={handleSignInClick}
+                className="back-to-login-link my-2"
+              >
+                Already have an account? Sign in
+              </a>
+            </form>
+          )}
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
+
+      {/* Panels for additional content */}
+      // Inside the panels-container div
+<div className="panels-container">
+  <div className="panel left-panel">
+    <div className="content">
+      <h3>New to our community ?</h3>
+      <p>
+        Discover a world of possibilities! Join us and explore a vibrant
+        community where ideas flourish and connections thrive.
+      </p>
+      <button
+        className="btn transparent"
+        id="sign-up-btn"
+        onClick={handleSignUpClick}
+      >
+        Sign up
+      </button>
+    <img src="https://i.ibb.co/nP8H853/Mobile-login-rafiki.png" alt="Community" className="panel-image" />
+    </div>
+    {/* Add image here */}
+  </div>
+  <div className="panel right-panel">
+    <div className="content">
+      <h3>One of Our Valued Members</h3>
+      <p>
+        Thank you for being part of our community. Your presence enriches our
+        shared experiences. Let's continue this journey together!
+      </p>
+      <button
+        className="btn transparent"
+        id="sign-in-btn"
+        onClick={handleSignInClick}
+      >
+        Sign in
+      </button>
+      <img src="https://i.ibb.co/nP8H853/Mobile-login-rafiki.png" alt="Community" className="panel-image" />
+    </div>
+    {/* Add another image here */}
+    {/* <img src="/path/to/your/image.jpg" alt="Members" className="panel-image" /> */}
+  </div>
+</div>
+
     </div>
   );
 }

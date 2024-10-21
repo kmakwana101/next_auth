@@ -37,13 +37,14 @@ export async function POST(req: NextRequest) {
 
         const tokenExpiresAt = decodedToken.exp * 1000;
         const currentTime = Date.now();
-        console.log(decodedToken)
+        // console.log(decodedToken)
         if (tokenExpiresAt > currentTime) {
 
             return NextResponse.json({
                 statusCode: 200,
                 message: 'Session is valid',
-                userId : decodedToken?.userId 
+                userId : decodedToken?.userId ,
+                accessToken : token
             }, { status: 200 });
 
         } else {

@@ -7,12 +7,13 @@ export async function middleware(request: NextRequest) {
     const path = request.nextUrl.pathname;
 
     const publicPaths = [
-        '/api/users/login',
-        '/api/users/signup',
-        '/api/users/resetpassword',
-        '/api/users/forgetpassword',
-        '/api/users/comparecode',
-        '/api/users/refreshtoken',
+        '/api/login',
+        '/api/auth',
+        '/api/signup',
+        '/api/resetpassword',
+        '/api/forgetpassword',
+        '/api/comparecode',
+        '/api/refreshtoken',
     ];
 
     if (publicPaths.includes(path)) {
@@ -31,7 +32,7 @@ export async function middleware(request: NextRequest) {
 
     try {
 
-        const responseData = await axios.post(`http://localhost:3001/api/users/auth`, {}, {
+        const responseData = await axios.post(`http://localhost:3001/api/auth`, {}, {
             headers: {
                 'authorization': `Bearer ${token}`
             }
