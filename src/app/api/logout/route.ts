@@ -7,8 +7,8 @@ connect();
 export async function POST(request: NextRequest) {
     try {
         const headers: any = request.headers;
-        console.log(request.headers.get('userid'), 'userid'); // Correctly access the userid header
-        console.log(headers, 'headers');
+        // console.log(request.headers.get('userid'), 'userid'); // Correctly access the userid header
+        // console.log(headers, 'headers');
         const authorizationHeader = request.headers.get('authorization');
         if (!authorizationHeader) {
             throw new AppError('Authorization header missing.', 400);

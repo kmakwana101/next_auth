@@ -29,9 +29,10 @@ export async function middleware(request: NextRequest) {
             message: 'A token is required for authentication.',
         }), { status: 401, headers: { 'Content-Type': 'application/json' } });
     }
-
+    
+    
     try {
-
+        
         const responseData = await axios.post(`http://localhost:3001/api/auth`, {}, {
             headers: {
                 'authorization': `Bearer ${token}`

@@ -17,10 +17,10 @@ export async function POST(request: NextRequest) {
 
         if (contentType?.includes("multipart/form-data")) {
             formData = await request.formData(); // Handle FormData
-            console.log('Received FormData:', Array.from(formData.entries())); // Log all entries
+            // console.log('Received FormData:', Array.from(formData.entries())); // Log all entries
         } else if (contentType?.includes("application/json")) {
             body = await request.json(); // Handle JSON payload
-            console.log('Received JSON:', body);
+            // console.log('Received JSON:', body);
         } else {
             throw new AppError("Unsupported content type", 415);
         }

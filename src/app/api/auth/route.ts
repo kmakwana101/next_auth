@@ -4,10 +4,10 @@ import { SESSION } from '@/models/sessionModel';
 
 export async function POST(req: NextRequest) {
 
-    
+
     const authorizationHeader = req.headers.get('authorization');
     const token = authorizationHeader?.split(' ')[1];
-    
+
     if (!token) {
         return NextResponse.json({
             statusCode: 401,
@@ -43,12 +43,12 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({
                 statusCode: 200,
                 message: 'Session is valid',
-                userId : decodedToken?.userId ,
-                accessToken : token
+                userId: decodedToken?.userId,
+                accessToken: token
             }, { status: 200 });
 
         } else {
-
+            console.log('token expire')
             return NextResponse.json({
                 statusCode: 401,
                 message: 'Token expired.',
