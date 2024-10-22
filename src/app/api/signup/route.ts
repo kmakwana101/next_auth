@@ -66,7 +66,7 @@ export async function POST(request: NextRequest) {
         });
 
         return NextResponse.json({
-            status: 201,
+            statusCode: 201,
             message: "User registered successfully",
             data: newUser,
         });

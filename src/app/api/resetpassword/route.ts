@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
         } else if (!password) {
             throw new AppError('password is required', 400)
         } else if (!confirmPassword) {
-            throw new AppError('email is required', 400)
+            throw new AppError('confirmPassword is required', 400)
         } else if (password !== confirmPassword) {
             throw new AppError("Password is not matched with confirmation password.");
         }

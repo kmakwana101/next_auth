@@ -439,3 +439,7 @@ form.sign-in-form {
 .fff{
   width: 47%;
 }              
+
+.cursor-pointer{
+  cursor: pointer;
+}
