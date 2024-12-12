@@ -21,6 +21,7 @@ const useApiData = (endpoint: string, method: 'GET' | 'POST' = 'GET', payload?: 
         const fetchData = async () => {
 
             const accessToken: any = Cookies.get('accessToken');
+            console.log(accessToken,'accessToken')
             setAccessToken(accessToken)
 
             if (!accessToken) {

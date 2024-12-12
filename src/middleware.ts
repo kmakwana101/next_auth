@@ -16,6 +16,7 @@ export async function middleware(request: NextRequest) {
         '/api/refreshtoken',
     ];
 
+
     if (publicPaths.includes(path)) {
         return NextResponse.next(); // Allow access to public paths
     }
@@ -32,12 +33,15 @@ export async function middleware(request: NextRequest) {
     
     
     try {
-        
-        const responseData = await axios.post(`http://localhost:3001/api/auth`, {}, {
+
+        const currentDomain = request.nextUrl.origin;
+
+        const responseData = await axios.post(`${currentDomain}/api/auth`, {}, {
             headers: {
                 'authorization': `Bearer ${token}`
             }
         });
+
 
         if (responseData.status !== 200) {
             return new NextResponse(JSON.stringify({
