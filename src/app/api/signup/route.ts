@@ -7,6 +7,7 @@ import * as bcrypt from "bcrypt";
 
 connect();
 
+export const runtime = 'nodejs';
 export async function POST(request: NextRequest) {
     try {
         

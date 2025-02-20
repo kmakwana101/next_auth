@@ -6,6 +6,7 @@ import { USER_VERIFICATION } from "@/models/userVerificationModel";
 import bcrypt from 'bcrypt'
 connect();
 
+export const runtime = 'nodejs';
 export async function POST(request: NextRequest) {
     try {
 

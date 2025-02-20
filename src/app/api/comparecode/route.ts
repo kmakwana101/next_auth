@@ -4,6 +4,7 @@ import { AppError } from "@/helpers/errorHandler";
 import { USER_VERIFICATION } from "@/models/userVerificationModel";
 connect();
 
+export const runtime = 'nodejs';
 export async function POST(request: NextRequest) {
     try {
 

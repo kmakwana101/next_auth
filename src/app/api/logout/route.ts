@@ -4,6 +4,7 @@ import { AppError } from "@/helpers/errorHandler";
 import { SESSION } from "@/models/sessionModel";
 connect();
 
+export const runtime = 'nodejs';
 export async function POST(request: NextRequest) {
     try {
         const headers: any = request.headers;

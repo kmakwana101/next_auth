@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
 import { SESSION } from '@/models/sessionModel';
 
+export const runtime = 'nodejs';
 export async function POST(req: NextRequest) {
 
 

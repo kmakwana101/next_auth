@@ -1,0 +1,7 @@
+[build]
+  command = "npm run build"  # Build command for Next.js
+  publish = ".next"          # Output directory for static files
+  functions = "functions"    # (Optional) Custom serverless functions directory
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"  # Enables Next.js runtime features

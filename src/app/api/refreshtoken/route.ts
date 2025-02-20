@@ -8,6 +8,7 @@ import { USER } from "@/models/userModel";
 import { generateToken } from "@/helpers/authHelpers";
 connect();
 
+export const runtime = 'nodejs';
 export async function POST(request: NextRequest) {
     try {
         let body: any = await request.json();
