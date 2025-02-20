@@ -431,7 +431,7 @@ form.sign-in-form {
   }
 
   .formContainer.sign-up-mode:before {
-    bottom: 28%;
+    bottom: 42%;
     left: 50%;
   }
 }

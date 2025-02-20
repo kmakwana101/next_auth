@@ -2,6 +2,12 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import axios from 'axios';
 
+
+export const config = {
+    runtime: 'nodejs', // Force Node.js runtime
+    matcher: ['/api/:path*'],
+};
+
 export async function middleware(request: NextRequest) {
 
     const path = request.nextUrl.pathname;
@@ -30,8 +36,8 @@ export async function middleware(request: NextRequest) {
             message: 'A token is required for authentication.',
         }), { status: 401, headers: { 'Content-Type': 'application/json' } });
     }
-    
-    
+
+
     try {
 
         const currentDomain = request.nextUrl.origin;
@@ -52,7 +58,7 @@ export async function middleware(request: NextRequest) {
 
         const userId = responseData.data.userId;
         const response = NextResponse.next();
-        response.headers.set('userId', userId); 
+        response.headers.set('userId', userId);
         return response;
 
     } catch (error: any) {
@@ -65,6 +71,3 @@ export async function middleware(request: NextRequest) {
     }
 }
 
-export const config = {
-    matcher: ['/api/:path*'],
-};

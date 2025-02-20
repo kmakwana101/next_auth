@@ -5,6 +5,7 @@ interface ApiResponse {
     data?: any;
 }
 
+export const runtime = 'nodejs'; // Explicitly set runtime to Node.js
 export const apiCall = async (
     url: string,
     method: string,
