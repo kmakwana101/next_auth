@@ -14,39 +14,28 @@ export async function POST(request: NextRequest) {
     console.log('POST /api/login - Request received');
 
     try {
-        console.log('Parsing request body');
+
         let body: any = await request.json();
         const { email, password, notificationToken, ipAddress, deviceName, platform, version } = body;
-        console.log('Request body parsed:', { email, password, notificationToken, ipAddress, deviceName, platform, version });
 
-        console.log('Validating input');
         if (!email) {
-            console.log('Validation failed: Email is missing');
             throw new AppError('Email is required', 400);
         } else if (!password) {
-            console.log('Validation failed: Password is missing');
             throw new AppError('Password is required', 400);
         }
 
-        console.log('Querying user with email:', email);
-        const User = await USER.findOne({ email });
-        console.log('User query result:', User ? 'User found' : 'User not found');
+        const User = await USER.findOne({ $or: [{ email: email }, { username: email }] });
 
         if (!User) {
-            console.log('User not found for email:', email);
             throw new AppError('User not found.', 400);
         }
 
-        console.log('Comparing password for user:', User.email);
         const passwordMatch = await bcrypt.compare(password, User?.password);
-        console.log('Password match result:', passwordMatch);
 
         if (!passwordMatch) {
-            console.log('Password mismatch for user:', User.email);
             throw new AppError('Password invalid', 400);
         }
 
-        console.log('Generating tokens for user:', User.email);
         const objectToCreateToken: any = {
             userId: User?._id,
             username: User?.username,
@@ -59,17 +48,13 @@ export async function POST(request: NextRequest) {
             expiresIn: process.env.REFRESH_TOKEN_EXPIRE_IN_DAY,
             algorithm: 'RS256',
         });
-        console.log('Tokens generated - Access:', accessToken.slice(0, 20) + '...', 'Refresh:', refreshToken.slice(0, 20) + '...');
 
-        console.log('Creating token record');
         await TOKEN.create({
             userId: User._id,
             accessToken: accessToken,
             refreshToken: refreshToken,
         });
-        console.log('Token record created');
 
-        console.log('Creating session record');
         await SESSION.create({
             userId: User._id,
             notificationToken: notificationToken || null,
@@ -81,9 +66,7 @@ export async function POST(request: NextRequest) {
             version: version || null,
             isActive: true,
         });
-        console.log('Session record created');
 
-        console.log('Sending successful response');
         return NextResponse.json({
             statusCode: 200,
             message: 'User logged in successfully.',

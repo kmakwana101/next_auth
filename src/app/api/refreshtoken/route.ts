@@ -14,8 +14,6 @@ export async function POST(request: NextRequest) {
         let body: any = await request.json();
         const { refreshToken } = body;
 
-        // console.log(refreshToken)
-
         if (!refreshToken) {
             throw new AppError('refreshToken is required', 400)
         }

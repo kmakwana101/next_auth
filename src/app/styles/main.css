@@ -302,7 +302,9 @@ form.sign-in-form {
 .formContainer.sign-up-mode .right-panel {
   pointer-events: all;
 }
-
+.full-w{
+  width: 100% !important;
+}
 @media (max-width: 870px) {
   .formContainer {
     min-height: 800px;
@@ -431,9 +433,17 @@ form.sign-in-form {
   }
 
   .formContainer.sign-up-mode:before {
-    bottom: 42%;
+    bottom: 31%;
     left: 50%;
   }
+
+  .mgb{
+    display: none;
+  }
+  .right-panel{
+    margin-top: 310px !important;
+  }
+
 }
 
 .fff{
