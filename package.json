@@ -20,6 +20,7 @@
     "joi": "^17.13.3",
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
+    "lucide-react": "^0.475.0",
     "mongoose": "^8.7.2",
     "next": "14.2.15",
     "nodemailer": "^6.9.15",
