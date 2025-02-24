@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
         const role = formData ? formData.get("role")?.toString() : body?.role;
         const username = formData ? formData.get("username")?.toString() : body?.username;
 
-        console.log('Extracted values:', { email, mobileNumber, password, profileImage, role, username });
+        // console.log('Extracted values:', { email, mobileNumber, password, profileImage, role, username });
 
         const { error } = userValidation.validate({
             email,
